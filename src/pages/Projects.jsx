@@ -21,15 +21,17 @@ const projectsData = [
   },
 ]
 
+const allTags =['All', 'HTML', 'CSS', 'JavaScript', 'React', 'Tailwind', 'Netlify']
+
 function Projects() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [activeTag, setActiveTag] = useState('All')
 
   useEffect(() => {
     async function loadProjects() {
       try {
-        // Simulating a real API call with a delay
         await new Promise((resolve) => setTimeout(resolve, 1500))
         setProjects(projectsData)
         setLoading(false)
@@ -40,6 +42,12 @@ function Projects() {
     }
     loadProjects()
   }, [])
+
+
+  const filtered = activeTag === 'All'
+  ? projects
+  : projects.filter((project) => project.tags.includes(activeTag))
+
 
   // Show skeleton while loading
   if (loading) {
@@ -73,8 +81,26 @@ function Projects() {
       <p className="text-gray-400 text-lg mb-12 max-w-xl">
         A selection of things I've designed and built along the way.
       </p>
+
+    <div className='flex flex-wrap gap-2 mb-10'>
+      {allTags.map((tag) => (
+        <button
+        key={tag}
+        onClick={() => setActiveTag(tag)}
+        className={`px-4 py-1.5 rounded-full text-sm border transition ${activeTag  === tag  
+          ? 'bg-purple-600 border-purple-600 text-white'
+          : 'border-gray-700 text-gray-400 hover:border-gray-500'
+            }`} >
+              {tag}
+            </button>
+      ))}
+    </div>
+
+
+
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
+        {filtered.map((project) => (
           <div
             key={project.title}
             className="flex flex-col rounded-2xl border border-gray-800 bg-gray-900 hover:border-purple-600 transition-all duration-300 overflow-hidden"

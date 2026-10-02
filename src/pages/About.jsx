@@ -5,7 +5,7 @@ function About() {
         About Me 
       </div>
       <h1 className="text-5xl font-bold text-white mb-6">
-        I'm Sasha — I build things for the web.
+         A little bit about my background and what I'm building towards.
       </h1>
 
       <div className="space-y-4 text-gray-400 text-lg leading-relaxed mb-10">

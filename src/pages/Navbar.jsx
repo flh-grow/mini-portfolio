@@ -30,6 +30,7 @@ function Navbar() {
       {navLink('/', 'Home')}
       {navLink('/about', 'About')}
       {navLink('/projects', 'Projects')}
+      {navLink('/contact', 'Contact')}
     </nav>
   </div>
 </header>
