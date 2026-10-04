@@ -6,6 +6,7 @@ import Projects from './pages/Projects'
 import NotFound from './pages/NotFound'
 import Footer from './pages/Footer'
 import Contact from './pages/Contact'
+import ProjectCard from './components/ProjectCard'
 
 function App() {
   return (

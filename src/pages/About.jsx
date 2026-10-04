@@ -1,4 +1,13 @@
+import { useContext } from "react"
+import { MyInfo } from '../context/MyInfo'
+
+
+
+
+
 function About() {
+     const {name, email, github, location} = useContext(MyInfo)
+
   return (
     <div className="text-center py-20 max-w-3xl">
       <div className="mb-2 text-purple-400 text-sm font-medium tracking-widest uppercase">
@@ -10,7 +19,7 @@ function About() {
 
       <div className="space-y-4 text-gray-400 text-lg leading-relaxed mb-10">
       <p>
-        I'm a 22-year-old frontend developer and marketer based in Erfurt, Germany. 
+        My name is {name}. I'm a 22-year-old frontend developer and marketer based in {location}. 
         I started learning to code because I wanted to build things that actually work — 
          not just look good on paper.
       </p>
@@ -26,7 +35,7 @@ function About() {
 
     <div className="grid grid-cols-2 gap-4 mb-12">
       {[
-        {label: 'Location', value: 'Erfurt, Germany 🇩🇪'},
+        { label: 'Location', value: `${location} 🇩🇪`},
         { label: 'Age', value: '22' },
         { label: 'Focus', value: 'Frontend + Marketing' },
         { label: 'Status', value: '✅ Available for work' },
@@ -38,7 +47,7 @@ function About() {
       ))}
     </div>
 
-      <a href="mailto:aflatcher47@gmail.com" className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:-translate-y-1">
+      <a href={`mailto:${email}`} className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:-translate-y-1">
         Get in touch →
       </a>
     </div>

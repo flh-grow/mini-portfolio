@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import ProjectCard from '../components/ProjectCard'
 
 const projectsData = [
   {
@@ -100,33 +101,15 @@ function Projects() {
 
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((project) => (
-          <div
-            key={project.title}
-            className="flex flex-col rounded-2xl border border-gray-800 bg-gray-900 hover:border-purple-600 transition-all duration-300 overflow-hidden"
-          >
-            <div className="h-1 bg-purple-600" />
-            <div className="p-6 flex flex-col flex-1">
-              <h3 className="text-white font-bold text-xl mb-2">{project.title}</h3>
-              <p className="text-gray-400 text-sm mb-4 flex-1">{project.desc}</p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-full border border-gray-700">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              
-                <a href={project.url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-center bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm transition"
-              >
-                View Live →
-              </a>
-            </div>
-          </div>
-        ))}
+{filtered.map((project) => (
+  <ProjectCard
+    key={project.title}
+    title={project.title}
+    desc={project.desc}
+    url={project.url}
+    tags={project.tags}
+  />
+))}
       </div>
     </div>
   )
