@@ -1,12 +1,18 @@
 import { useContext } from "react"
 import { MyInfo } from '../context/MyInfo'
+import { useCopy } from '../hooks/useCopy'
+import { useToggle } from '../hooks/useToggle'
+
 
 
 
 
 
 function About() {
-     const {name, email, github, location} = useContext(MyInfo)
+     const {name, email, location} = useContext(MyInfo)
+     const { copied, copy } = useCopy()
+     const { isOn, toggle } = useToggle()
+
 
   return (
     <div className="text-center py-20 max-w-3xl">
@@ -50,6 +56,16 @@ function About() {
       <a href={`mailto:${email}`} className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:-translate-y-1">
         Get in touch →
       </a>
+
+      <button onClick={() => copy(email)} className="text-gray-500 m-6 hover:text-white text-sm transition">
+        {copied ? 'Copied! ✅' : 'Copy email'}
+      </button>
+
+
+      <button onClick={toggle} className="text-purple-400 mb-6">
+  {isOn ? 'Hide fun fact 🙈' : 'Show fun fact 👀'}
+</button>
+{isOn && <p className="text-gray-400 mb-6">I'm originally from Ukraine 🇺🇦</p>}
     </div>
   )
 }

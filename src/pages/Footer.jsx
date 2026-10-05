@@ -1,19 +1,11 @@
 import { useContext, useState } from "react"
 import { MyInfo } from '../context/MyInfo'
+import { useCopy } from '../hooks/useCopy'
 
 
 function Footer() {
   const {name, email, github} = useContext(MyInfo)
-  const [copied, setCopied] = useState(false)
-
-
-  function handleCopy() {
-    navigator.clipboard.writeText(email)
-    setCopied(true)
-    setTimeout(() => {
-      setCopied(false)
-    }, 2000);
-  }
+  const { copied, copy } = useCopy()
 
 
   return (
@@ -30,7 +22,7 @@ function Footer() {
         className="text-gray-500 hover:text-white text-sm transition">
           Github
         </a>
-        <button onClick={handleCopy} className="text-gray-500 hover:text-white text-sm transition">
+        <button onClick={() => copy(email)} className="text-gray-500 hover:text-white text-sm transition">
             {copied ? 'Copied! ✅' : 'Email'}
             </button>
       </div>
