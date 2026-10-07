@@ -1,54 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useGit } from '../hooks/useGit'
 import ProjectCard from '../components/ProjectCard'
+import { useState } from 'react'
 
-const projectsData = [
-  {
-    title: 'GrowFast',
-    desc: 'Marketing landing page built to convert visitors into leads.',
-    url: 'https://remarkable-parfait-861345.netlify.app/',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-  },
-  {
-    title: 'Dashboard',
-    desc: 'Personal analytics dashboard with live data visualization.',
-    url: 'https://guileless-cocada-be4dd4.netlify.app/',
-    tags: ['React', 'Tailwind'],
-  },
-  {
-    title: 'Portfolio',
-    desc: 'My developer portfolio — the one you\'re looking at right now.',
-    url: 'https://lucent-arithmetic-27d0d6.netlify.app/',
-    tags: ['React', 'Tailwind', 'Netlify'],
-  },
-]
-
-const allTags =['All', 'HTML', 'CSS', 'JavaScript', 'React', 'Tailwind', 'Netlify']
 
 function Projects() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const { data: projects, loading, error } = useGit('https://api.github.com/users/flh-grow/repos')
   const [activeTag, setActiveTag] = useState('All')
-
-  useEffect(() => {
-    async function loadProjects() {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-        setProjects(projectsData)
-        setLoading(false)
-      } catch (err) {
-        setError('Something went wrong 😢')
-        setLoading(false)
-      }
-    }
-    loadProjects()
-  }, [])
 
 
   const filtered = activeTag === 'All'
   ? projects
-  : projects.filter((project) => project.tags.includes(activeTag))
+  : projects.filter((repo) => repo.language === activeTag)
 
+ const allTags = ['All', ...new Set(projects.map((repo) => repo.language).filter(Boolean))] // ['HTML', 'JavaScript', null, 'JavaScript']
+                                                                                            // removes null → ['HTML', 'JavaScript', 'JavaScript']
+                                                                                            // removes duplicates → {'HTML', 'JavaScript'}
 
   // Show skeleton while loading
   if (loading) {
@@ -101,13 +67,13 @@ function Projects() {
 
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-{filtered.map((project) => (
+{filtered.map((repo) => (
   <ProjectCard
-    key={project.title}
-    title={project.title}
-    desc={project.desc}
-    url={project.url}
-    tags={project.tags}
+    key={repo.id}
+    title={repo.name}
+    desc={repo.description || 'No description yet.'}
+    url={repo.html_url}
+    tags={repo.language ? [repo.language] : []}
   />
 ))}
       </div>
