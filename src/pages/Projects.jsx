@@ -1,7 +1,7 @@
 import { useGit } from '../hooks/useGit'
 import ProjectCard from '../components/ProjectCard'
 import { useState } from 'react'
-
+import FeaturedProject from '../components/FeaturedProject'
 
 function Projects() {
   const { data: projects, loading, error } = useGit('https://api.github.com/users/flh-grow/repos')
@@ -49,6 +49,8 @@ function Projects() {
         A selection of things I've designed and built along the way.
       </p>
 
+      <FeaturedProject />
+
     <div className='flex flex-wrap gap-2 mb-10'>
       {allTags.map((tag) => (
         <button
@@ -72,7 +74,7 @@ function Projects() {
     key={repo.id}
     title={repo.name}
     desc={repo.description || 'No description yet.'}
-    url={repo.html_url}
+    url={repo.homepage || repo.html_url}
     tags={repo.language ? [repo.language] : []}
   />
 ))}
