@@ -2,14 +2,14 @@ import { featured } from '../data/featured'
 
 function FeaturedProject() {
   return (
-    <section className="mb-20 rounded-2xl border border-purple-600/40 bg-gray-900 overflow-hidden">
+    <section className="group mb-20 rounded-2xl border border-purple-600/40 bg-gray-900 overflow-hidden">
       <div className="grid md:grid-cols-2">
 
         {/* LEFT: screenshot */}
         <img
           src={featured.image}
           alt={`Screenshot of ${featured.title}`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-left-top transition duration-500 group-hover:scale-105"
         />
 
         {/* RIGHT: content */}
